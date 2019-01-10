@@ -36,20 +36,24 @@ public class UtilTest {
 
     @Test
     public void testSleep() {
-        long now = System.currentTimeMillis();
+        // Windows counters may be up to 10ms off
+        long now = System.nanoTime();
         Util.sleep(100);
-        assertTrue(System.currentTimeMillis() - now >= 99);
+        assertTrue(System.nanoTime() - now >= 90_000_000);
 
-        now = System.currentTimeMillis();
-        long then = now + 100;
+        now = System.nanoTime();
+        long then = System.currentTimeMillis() + 100;
         Util.sleepAfter(then, 100);
-        assertTrue(System.currentTimeMillis() - now >= 199);
+        assertTrue(System.nanoTime() - now >= 190_000_000);
 
-        now = System.currentTimeMillis();
-        then = now - 550;
+        now = System.nanoTime();
+        then = System.currentTimeMillis() - 550;
         Util.sleepAfter(then, 500);
-        assertTrue(System.currentTimeMillis() - now < 500);
+        assertTrue(System.nanoTime() - now < 500_000_000);
+    }
 
+    @Test
+    public void testComputerIdentifier() {
         String computerIdentifier = Util.getComputerIdentifier();
         String idParts[] = computerIdentifier.split("-");
         assertEquals(4, idParts.length);
