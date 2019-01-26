@@ -33,7 +33,6 @@ import java.util.Map;
 import oshi.software.os.FileSystem;
 import oshi.software.os.OSFileStore;
 import oshi.util.ExecutingCommand;
-import oshi.util.MapUtil;
 import oshi.util.ParseUtil;
 import oshi.util.platform.unix.freebsd.BsdSysctlUtil;
 
@@ -175,7 +174,7 @@ public class FreeBsdFileSystem implements FileSystem {
                 description = "Mount Point";
             }
             // Match UUID
-            String uuid = MapUtil.getOrDefault(uuidMap, name, "");
+            String uuid = uuidMap.getOrDefault(name, "");
 
             // Add to the list
             OSFileStore osStore = new OSFileStore();
@@ -191,7 +190,7 @@ public class FreeBsdFileSystem implements FileSystem {
             osStore.setTotalInodes(inodeTotalMap.containsKey(path) ? inodeTotalMap.get(path) : 0L);
             fsList.add(osStore);
         }
-        return fsList.toArray(new OSFileStore[fsList.size()]);
+        return fsList.toArray(new OSFileStore[0]);
     }
 
     @Override

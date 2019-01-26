@@ -34,7 +34,6 @@ import oshi.software.os.NetworkParams;
 import oshi.software.os.OSProcess;
 import oshi.util.ExecutingCommand;
 import oshi.util.LsofUtil;
-import oshi.util.MapUtil;
 import oshi.util.ParseUtil;
 import oshi.util.platform.linux.ProcUtil;
 
@@ -76,7 +75,7 @@ public class SolarisOperatingSystem extends AbstractOperatingSystem {
         List<OSProcess> procs = getProcessListFromPS(
                 "ps -eo s,pid,ppid,user,uid,group,gid,nlwp,pri,vsz,rss,etime,time,comm,args", -1, slowFields);
         List<OSProcess> sorted = processSort(procs, limit, sort);
-        return sorted.toArray(new OSProcess[sorted.size()]);
+        return sorted.toArray(new OSProcess[0]);
     }
 
     /**
@@ -104,7 +103,7 @@ public class SolarisOperatingSystem extends AbstractOperatingSystem {
         List<OSProcess> procs = getProcessListFromPS(
                 "ps -eo s,pid,ppid,user,uid,group,gid,nlwp,pri,vsz,rss,etime,time,comm,args --ppid", parentPid, true);
         List<OSProcess> sorted = processSort(procs, limit, sort);
-        return sorted.toArray(new OSProcess[sorted.size()]);
+        return sorted.toArray(new OSProcess[0]);
     }
 
     private List<OSProcess> getProcessListFromPS(String psCommand, int pid, boolean slowFields) {
@@ -165,7 +164,7 @@ public class SolarisOperatingSystem extends AbstractOperatingSystem {
             sproc.setPath(split[13]);
             sproc.setName(sproc.getPath().substring(sproc.getPath().lastIndexOf('/') + 1));
             sproc.setCommandLine(split[14]);
-            sproc.setCurrentWorkingDirectory(MapUtil.getOrDefault(cwdMap, sproc.getProcessID(), ""));
+            sproc.setCurrentWorkingDirectory(cwdMap.getOrDefault(sproc.getProcessID(), ""));
             // bytes read/written not easily available
 
             // gets the open files count -- slow

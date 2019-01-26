@@ -36,7 +36,6 @@ import oshi.hardware.HWDiskStore;
 import oshi.hardware.HWPartition;
 import oshi.jna.platform.linux.Udev;
 import oshi.util.FileUtil;
-import oshi.util.MapUtil;
 import oshi.util.ParseUtil;
 
 /**
@@ -123,8 +122,9 @@ public class LinuxDisks implements Disks {
                         store.setName(Udev.INSTANCE.udev_device_get_devnode(device));
 
                         // Avoid model and serial in virtual environments
-                        store.setModel(Udev.INSTANCE.udev_device_get_property_value(device, "ID_MODEL") == null
-                                ? "Unknown" : Udev.INSTANCE.udev_device_get_property_value(device, "ID_MODEL"));
+                        store.setModel(
+                                Udev.INSTANCE.udev_device_get_property_value(device, "ID_MODEL") == null ? "Unknown"
+                                        : Udev.INSTANCE.udev_device_get_property_value(device, "ID_MODEL"));
                         store.setSerial(Udev.INSTANCE.udev_device_get_property_value(device, "ID_SERIAL_SHORT") == null
                                 ? "Unknown"
                                 : Udev.INSTANCE.udev_device_get_property_value(device, "ID_SERIAL_SHORT"));
@@ -155,7 +155,7 @@ public class LinuxDisks implements Disks {
                                         Udev.INSTANCE.udev_device_get_property_value(device, "MAJOR"), 0),
                                 ParseUtil.parseIntOrDefault(
                                         Udev.INSTANCE.udev_device_get_property_value(device, "MINOR"), 0),
-                                MapUtil.getOrDefault(this.mountsMap, name, ""));
+                                mountsMap.getOrDefault(name, ""));
                         store.setPartitions(partArray);
                     }
                 }
@@ -171,7 +171,7 @@ public class LinuxDisks implements Disks {
         Udev.INSTANCE.udev_enumerate_unref(enumerate);
         Udev.INSTANCE.udev_unref(handle);
 
-        return result.toArray(new HWDiskStore[result.size()]);
+        return result.toArray(new HWDiskStore[0]);
     }
 
     /**

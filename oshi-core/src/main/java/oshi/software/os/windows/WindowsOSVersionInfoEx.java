@@ -37,7 +37,6 @@ import com.sun.jna.platform.win32.COM.WbemcliUtil.WmiResult;
 
 import oshi.software.common.AbstractOSVersionInfoEx;
 import oshi.util.ParseUtil;
-import oshi.util.StringUtil;
 import oshi.util.platform.windows.WmiQueryHandler;
 import oshi.util.platform.windows.WmiUtil;
 
@@ -58,7 +57,7 @@ public class WindowsOSVersionInfoEx extends AbstractOSVersionInfoEx {
     private void init() {
         // Populate a key-value map from WMI
         WmiQuery<OSVersionProperty> osVersionQuery = new WmiQuery<>("Win32_OperatingSystem", OSVersionProperty.class);
-        WmiResult<OSVersionProperty> versionInfo = WmiQueryHandler.getInstance().queryWMI(osVersionQuery);
+        WmiResult<OSVersionProperty> versionInfo = WmiQueryHandler.createInstance().queryWMI(osVersionQuery);
         if (versionInfo.getResultCount() < 1) {
             handleNoVersionInfo();
         } else {
@@ -187,6 +186,6 @@ public class WindowsOSVersionInfoEx extends AbstractOSVersionInfoEx {
             suites.add("Compute Cluster");
         }
         // 0x8000, Home Server, is included in main version name
-        return StringUtil.join(",", suites);
+        return String.join(",", suites);
     }
 }

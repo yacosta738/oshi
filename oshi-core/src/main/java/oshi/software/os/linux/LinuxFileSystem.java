@@ -43,7 +43,6 @@ import com.sun.jna.platform.linux.LibC;
 import oshi.software.os.FileSystem;
 import oshi.software.os.OSFileStore;
 import oshi.util.FileUtil;
-import oshi.util.MapUtil;
 import oshi.util.ParseUtil;
 
 /**
@@ -164,7 +163,7 @@ public class LinuxFileSystem implements FileSystem {
                 name = "/";
             }
             String volume = split[0].replaceAll("\\\\040", " ");
-            String uuid = MapUtil.getOrDefault(uuidMap, split[0], "");
+            String uuid = uuidMap.getOrDefault(split[0], "");
 
             String description;
             if (volume.startsWith("/dev")) {
@@ -232,7 +231,7 @@ public class LinuxFileSystem implements FileSystem {
             fsList.add(osStore);
         }
 
-        return fsList.toArray(new OSFileStore[fsList.size()]);
+        return fsList.toArray(new OSFileStore[0]);
     }
 
     @Override

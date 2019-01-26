@@ -28,8 +28,6 @@ import java.io.Serializable;
 /**
  * The Baseboard represents the system board, also called motherboard, logic
  * board, etc.
- *
- * @author widdis [at] gmail [dot] com
  */
 public interface Baseboard extends Serializable {
     /**
@@ -54,7 +52,7 @@ public interface Baseboard extends Serializable {
     String getVersion();
 
     /**
-     * Get the baseboard serial number
+     * Get the baseboard serial number.
      *
      * @return The serial number.
      */

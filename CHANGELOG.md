@@ -1,14 +1,27 @@
 4.0.0 (in progress)
 ================
+* [#756](https://github.com/oshi/oshi/pull/756): Require Java 8. - [@dbwiddis](https://github.com/dbwiddis).
+* [#773](https://github.com/oshi/oshi/pull/773): Remove oshi-json artifact. - [@dbwiddis](https://github.com/dbwiddis).
+* [#774](https://github.com/oshi/oshi/pull/774): API overhaul - ComputerSystem, Baseboard, and Firmware. - [@dbwiddis](https://github.com/dbwiddis).
+* [#775](https://github.com/oshi/oshi/pull/775): API overhaul - GlobalMemory, new VirtualMemory. - [@dbwiddis](https://github.com/dbwiddis).
+* [#776](https://github.com/oshi/oshi/pull/776): oshi-demo artifact. - [@dbwiddis](https://github.com/dbwiddis).
+* [#779](https://github.com/oshi/oshi/pull/779): API overhaul - CentralProcessor, new LogicalProcessor. - [@dbwiddis](https://github.com/dbwiddis).
+* Your contribution here.
+
+3.13.0 (1/18/2019)
+================
+* [#763](https://github.com/oshi/oshi/pull/763): Refactor PDH/WMI Fallback. - [@dbwiddis](https://github.com/dbwiddis).
+* [#766](https://github.com/oshi/oshi/pull/766): Use query key to update counters in groups. - [@dbwiddis](https://github.com/dbwiddis).
+* [#767](https://github.com/oshi/oshi/pull/767): Allow subclassing WmiQueryHandler with reflection. - [@dbwiddis](https://github.com/dbwiddis).
+* [#769](https://github.com/oshi/oshi/pull/769): Close PDH handles after each query. - [@dbwiddis](https://github.com/dbwiddis).
+
+3.12.1 (12/31/2018), 3.12.2 (1/10/2019)
+================
 * [#728](https://github.com/oshi/oshi/pull/728): Separate WMI Query Handling from Util. - [@retomerz](https://github.com/retomerz).
+* [#730](https://github.com/oshi/oshi/pull/730): Fix Windows process token handle leak. - [@dbwiddis](https://github.com/dbwiddis).
 * [#731](https://github.com/oshi/oshi/pull/731): Switch to MIT License, JNA 5.2.0. - [@dbwiddis](https://github.com/dbwiddis).
 * [#735](https://github.com/oshi/oshi/pull/735): Windows XP Compatibility fixes. - [@dbwiddis](https://github.com/dbwiddis).
 * [#737](https://github.com/oshi/oshi/pull/737): Properly handle redundant COM initialization. - [@dbwiddis](https://github.com/dbwiddis).
-* Your contribution here.
-
-3.12.1 (12/31/2018)
-================
-* [#730](https://github.com/oshi/oshi/pull/730): Fix Windows process token handle leak. - [@dbwiddis](https://github.com/dbwiddis).
 
 3.12.0 (12/16/2018)
 ================

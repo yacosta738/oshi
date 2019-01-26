@@ -54,7 +54,6 @@ import oshi.jna.platform.mac.DiskArbitration.DADiskRef;
 import oshi.jna.platform.mac.DiskArbitration.DASessionRef;
 import oshi.jna.platform.mac.IOKit;
 import oshi.util.ExecutingCommand;
-import oshi.util.MapUtil;
 import oshi.util.ParseUtil;
 import oshi.util.platform.mac.CfUtil;
 import oshi.util.platform.mac.IOKitUtil;
@@ -203,7 +202,7 @@ public class MacDisks implements Disks {
                             if (logicalVolumeMap.containsKey(partBsdName)) {
                                 mountPoint = "Logical Volume: " + logicalVolumeMap.get(partBsdName);
                             } else {
-                                mountPoint = MapUtil.getOrDefault(mountPointMap, partBsdName, "");
+                                mountPoint = mountPointMap.getOrDefault(partBsdName, "");
                             }
                             partitions.add(new HWPartition(partBsdName, name, type,
                                     IOKitUtil.getIORegistryStringProperty(sdService, "UUID"),
@@ -220,7 +219,7 @@ public class MacDisks implements Disks {
                         LOG.error("Unable to find properties for {}", bsdName);
                     }
                     Collections.sort(partitions);
-                    diskStore.setPartitions(partitions.toArray(new HWPartition[partitions.size()]));
+                    diskStore.setPartitions(partitions.toArray(new HWPartition[0]));
                     IOKit.INSTANCE.IOObjectRelease(parent.getValue());
                 } else {
                     LOG.error("Unable to find IOMedia device or parent for {}", bsdName);
@@ -396,7 +395,7 @@ public class MacDisks implements Disks {
         // Close DA session
         CfUtil.release(session);
         Collections.sort(result);
-        return result.toArray(new HWDiskStore[result.size()]);
+        return result.toArray(new HWDiskStore[0]);
     }
 
 }

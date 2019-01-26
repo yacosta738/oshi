@@ -23,8 +23,7 @@
  */
 package oshi.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -53,15 +52,24 @@ public class UtilTest {
     }
 
     @Test
-    public void testComputerIdentifier() {
-        String computerIdentifier = Util.getComputerIdentifier();
-        String idParts[] = computerIdentifier.split("-");
-        assertEquals(4, idParts.length);
-    }
+    public void testWildcardMatch() {
+        assertFalse(Util.wildcardMatch("Test", "est"));
+        assertTrue(Util.wildcardMatch("Test", "^est"));
+        assertFalse(Util.wildcardMatch("Test", "^^est"));
+        assertTrue(Util.wildcardMatch("Test", "?est"));
+        assertFalse(Util.wildcardMatch("Test", "^?est"));
+        assertTrue(Util.wildcardMatch("Test", "*est"));
+        assertFalse(Util.wildcardMatch("Test", "^*est"));
 
-    @Test
-    public void testIdentyVM() {
-        String vm = Util.identifyVM();
-        assertNotNull(vm);
+        assertFalse(Util.wildcardMatch("Test", "T?t"));
+        assertTrue(Util.wildcardMatch("Test", "T??t"));
+        assertTrue(Util.wildcardMatch("Test", "T*t"));
+
+        assertFalse(Util.wildcardMatch("Test", "Tes"));
+        assertTrue(Util.wildcardMatch("Test", "Tes?"));
+        assertTrue(Util.wildcardMatch("Test", "Tes*"));
+
+        assertFalse(Util.wildcardMatch("Test", "Te?"));
+        assertTrue(Util.wildcardMatch("Test", "Te*"));
     }
 }
